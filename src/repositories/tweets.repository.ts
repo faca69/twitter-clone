@@ -1,6 +1,10 @@
 import { db } from "@/db";
-import { TweetModel, tweets } from "@/db/schemas/tweet.schema";
-import { ilike } from "drizzle-orm";
+import {
+  TweetCreateModel,
+  TweetModel,
+  tweets,
+} from "@/db/schemas/tweet.schema";
+import { eq, ilike } from "drizzle-orm";
 
 export const find = async (
   searchTerm: string | null
@@ -13,4 +17,22 @@ export const find = async (
     console.error(error);
     return [];
   }
+};
+
+export const findOneById = async (id: string) => {
+  try {
+    return db.query.tweets.findFirst({
+      where: eq(tweets.id, id),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const create = (tweet: TweetCreateModel): Promise<TweetModel> => {
+  return db
+    .insert(tweets)
+    .values(tweet)
+    .returning()
+    .then((res) => res?.[0]);
 };
