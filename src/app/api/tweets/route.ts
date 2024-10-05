@@ -4,14 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   const searchTerm = req.nextUrl.searchParams?.get("searchTerm");
 
-  const tweets = await getTweets();
-  if (!searchTerm) {
-    return NextResponse.json(tweets);
-  }
+  const tweets = await getTweets(searchTerm);
 
-  const filteredTweets = tweets.filter((tweet) =>
-    tweet.text.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return NextResponse.json(filteredTweets);
+  return NextResponse.json(tweets);
 }

@@ -13,7 +13,7 @@ type TweetProps = {
   tweet: ITweet;
 };
 
-export default function Tweet({ tweet }: TweetProps) {
+export default function TweetCard({ tweet }: TweetProps) {
   return (
     <div className="flex flex-row p-4 gap-4 border-b-[1px] border-gray-600">
       <div>
