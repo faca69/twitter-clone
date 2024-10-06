@@ -2,7 +2,7 @@ import { TweetCreateModel, TweetModel } from "@/db/schemas/tweet.schema";
 import { create, find, findOneById } from "@/repositories/tweets.repository";
 
 export const getTweets = async (
-  searchTerm: string | null
+  searchTerm?: string | null
 ): Promise<TweetModel[]> => {
   const tweets = await find(searchTerm);
 

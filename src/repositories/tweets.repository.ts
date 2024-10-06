@@ -7,7 +7,7 @@ import {
 import { eq, ilike } from "drizzle-orm";
 
 export const find = async (
-  searchTerm: string | null
+  searchTerm?: string | null
 ): Promise<TweetModel[]> => {
   try {
     return db.query.tweets.findMany({
