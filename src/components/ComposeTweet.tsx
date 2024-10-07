@@ -7,7 +7,13 @@ import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { submitTweet } from "@/app/actions/create-tweet.action";
 
-export default function ComposeTweet() {
+type ComposetweetProps = {
+  onSubmit?: () => void;
+};
+
+export default function ComposeTweet({
+  onSubmit = () => void 0,
+}: ComposetweetProps) {
   const [value, setValue] = useState("");
 
   return (
@@ -25,6 +31,8 @@ export default function ComposeTweet() {
         className="w-full flex flex-col items-end"
         action={async (formData) => {
           await submitTweet(formData);
+          setValue("");
+          onSubmit();
         }}
       >
         <Textarea
