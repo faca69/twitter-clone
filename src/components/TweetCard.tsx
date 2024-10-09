@@ -8,6 +8,7 @@ import { Tweet as ITweet } from "../types/tweet.interface";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { formatDate } from "../lib/format-date";
+import { TweetType } from "@/types/tweet-type.enum";
 
 type TweetProps = {
   tweet: ITweet;
@@ -51,8 +52,12 @@ export default function TweetCard({ tweet }: TweetProps) {
         <p>{tweet.text}</p>
         <div className="flex flex-row gap-4 items-center mt-2 justify-between">
           <div className="flex flex-row gap-2 items-center">
-            <ChatBubbleOvalLeftIcon className="size-7 text-slate-500 cursor-pointer" />
-            <span>1</span>
+            <Link
+              href={`/feed/compose?type=${TweetType.Reply}&repliedToId${tweet.id}`}
+            >
+              <ChatBubbleOvalLeftIcon className="size-7 text-slate-500 cursor-pointer" />
+              <span>1</span>
+            </Link>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <ArrowPathRoundedSquareIcon className="size-7 text-slate-500 cursor-pointer" />
