@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 export const findByUsername = (username: string) =>
   db.query.users.findFirst({
     where: eq(users.username, username),
+    // with:{}
   });
 
 export const create = (user: UserCreateModel): Promise<UserModel> =>
