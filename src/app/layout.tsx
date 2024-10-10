@@ -4,6 +4,7 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { cn } from "@/lib/utils";
 import Sidebar from "@/components/Sidebar";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Twitter Clone",
@@ -23,16 +24,18 @@ export default function RootLayout({
           GeistSans.className
         )}
       >
-        <main className="min-h-screen flex flex-col items-center">
-          <article className="flex flex-row max-w-[800px] w-full h-screen">
-            <section className="w-80 p-2">
-              <Sidebar />
-            </section>
-            <section className="w-full border-gray-600 border-l-[1px] p-0 border-r-[1px]">
-              {children}
-            </section>
-          </article>
-        </main>
+        <Providers>
+          <main className="min-h-screen flex flex-col items-center">
+            <article className="flex flex-row max-w-[800px] w-full h-screen">
+              <section className="w-80 p-2">
+                <Sidebar />
+              </section>
+              <section className="w-full border-gray-600 border-l-[1px] p-0 border-r-[1px]">
+                {children}
+              </section>
+            </article>
+          </main>
+        </Providers>
       </body>
     </html>
   );
