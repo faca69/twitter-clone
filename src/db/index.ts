@@ -1,4 +1,4 @@
-import { userLikedTweetsRelations } from "./schemas/users_liked_tweets";
+// import { userLikedTweetsRelations } from "./schemas/user_liked_tweets";
 import {
   follows,
   usersFollowersRelations,

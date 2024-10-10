@@ -1,15 +1,17 @@
-import { Tweet as ITweet } from "../types/tweet.interface";
+import { TweetExtendedModel } from "../db/schemas/tweet.schema";
 import TweetCard from "./TweetCard";
 
 type TweetsProps = {
-  tweets: ITweet[];
+  tweets: TweetExtendedModel[];
 };
 
 export default function Tweets({ tweets }: TweetsProps) {
   return (
     <div>
       {tweets.map((tweet) => (
-        <TweetCard key={tweet.id} tweet={tweet} />
+        <>
+          <TweetCard key={tweet.id} tweet={tweet} />
+        </>
       ))}
     </div>
   );

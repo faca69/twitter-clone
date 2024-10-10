@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
 import { Tweet } from "../../types/tweet.interface";
-import TweetCard from "@/components/TweetCard";
+import Tweets from "@/components/Tweets";
 
 export default function Explore() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,9 +28,7 @@ export default function Explore() {
         />
       </div>
       <div>
-        {tweets.map((tweet) => (
-          <TweetCard key={tweet.id} tweet={tweet} />
-        ))}
+        <Tweets tweets={tweets} />
       </div>
     </div>
   );

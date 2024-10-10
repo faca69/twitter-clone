@@ -10,15 +10,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { formatDate } from "../lib/format-date";
 import { TweetType } from "../types/tweet-type.enum";
-import { cn } from "../lib/utils";
 import { TweetExtendedModel } from "../db/schemas/tweet.schema";
 import { repostTweet } from "../app/actions/repost-tweet.action";
+import { cn } from "@/lib/utils";
 
 type TweetProps = {
   tweet: TweetExtendedModel;
 };
 
-export default function Tweet({ tweet }: TweetProps) {
+export default function TweetCard({ tweet }: TweetProps) {
   return (
     <div
       className={cn("flex flex-col", tweet.type === TweetType.Tweet && "pt-4")}

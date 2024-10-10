@@ -1,17 +1,17 @@
-import { db } from "@/db";
+import { desc, eq, ilike } from "drizzle-orm";
+import { db } from "../db";
 import {
   TweetCreateModel,
   TweetModel,
   tweets,
-} from "@/db/schemas/tweet.schema";
-import { desc, eq, ilike } from "drizzle-orm";
+} from "../db/schemas/tweet.schema";
 
 export const find = async (
   searchTerm?: string | null
 ): Promise<TweetModel[]> => {
   try {
     return db.query.tweets.findMany({
-      where: ilike(tweets.text, `%${searchTerm}%`),
+      where: ilike(tweets.text, `%${searchTerm ?? ""}%`),
       orderBy: desc(tweets.createdAt),
       with: {
         repliedTo: true,
@@ -26,7 +26,7 @@ export const find = async (
   }
 };
 
-export const findOneById = async (id: string) => {
+export const findOneById = (id: string) => {
   try {
     return db.query.tweets.findFirst({
       where: eq(tweets.id, id),

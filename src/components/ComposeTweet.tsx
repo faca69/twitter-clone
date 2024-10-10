@@ -5,48 +5,43 @@ import { Avatar } from "./ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { submitTweet } from "@/app/actions/create-tweet.action";
+import { submitTweet } from "../app/actions/create-tweet.action";
 import { useSearchParams } from "next/navigation";
-import { TweetModel } from "@/db/schemas/tweet.schema";
-import { TweetType } from "@/types/tweet-type.enum";
-import { Input } from "./ui/input";
-import { submitReply } from "@/app/actions/reply.action";
+import { TweetModel } from "../db/schemas/tweet.schema";
+import { TweetType } from "../types/tweet-type.enum";
+import { submitReply } from "../app/actions/reply.action";
 
-type ComposetweetProps = {
+type ComposeTweetProps = {
   onSubmit?: () => void;
 };
 
 export default function ComposeTweet({
   onSubmit = () => void 0,
-}: ComposetweetProps) {
+}: ComposeTweetProps) {
   const [value, setValue] = useState("");
-  const searchParams = useSearchParams();
   const [originalTweet, setOriginalTweet] = useState<TweetModel>();
   const [type, setType] = useState<TweetType>(TweetType.Tweet);
   const [repliedToId, setRepliedToId] = useState("");
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     const typeParam = searchParams.get("type");
 
-    if (typeParam) {
-      setType(typeParam as TweetType);
-    }
+    setType((typeParam as TweetType) || TweetType.Tweet);
+
+    const id = searchParams.get("repliedToId");
 
     if (type === TweetType.Reply && id) {
-      const id = searchParams.get("repliedToId");
       setRepliedToId(id);
-      fetch(`http://lcoalhost:3000/api/tweets/${id}`)
+      fetch(`http://localhost:3000/api/tweets/${id}`)
         .then((res) => res.json())
         .then((body) => setOriginalTweet(body));
     } else {
       setRepliedToId("");
       setOriginalTweet(undefined);
     }
-
-    if (!type) {
-      return;
-    }
-  }, [searchParams]);
+  }, [searchParams, type]);
 
   return (
     <>
@@ -68,13 +63,14 @@ export default function ComposeTweet({
         <form
           className="w-full flex flex-col items-end"
           action={async (formData) => {
-            if (type == TweetType.Tweet) {
+            if (type === TweetType.Tweet) {
               await submitTweet(formData);
             }
 
             if (type === TweetType.Reply) {
               await submitReply(formData);
             }
+
             setValue("");
             onSubmit();
           }}
@@ -86,7 +82,7 @@ export default function ComposeTweet({
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <Input type="hidden" name="repliedToiD" value={repliedToId} />
+          <input type="hidden" name="repliedToId" value={repliedToId} />
           <Button
             className="mt-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white"
             disabled={!value}

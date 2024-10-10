@@ -1,5 +1,5 @@
 export enum TweetType {
-	Tweet = 'Tweet',
-	Reply = 'Reply',
-	Repost = 'Repost',
+  Tweet = "Tweet",
+  Reply = "Reply",
+  Repost = "Repost",
 }

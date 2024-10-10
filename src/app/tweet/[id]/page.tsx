@@ -1,6 +1,6 @@
-import TweetCard from "@/components/TweetCard";
 import { getTweetById } from "@/services/tweets.service";
 import { Tweet as ITweet } from "../../../types/tweet.interface";
+import TweetCard from "@/components/TweetCard";
 
 type TweetDetailsProps = {
   params: { id: string };
