@@ -1,9 +1,10 @@
 import { Input } from "@/components/ui/input";
 import React from "react";
+import loginUser from "../actions/login-user.action";
 
 export default function Login() {
   return (
-    <form className="flex flex-col gap-4 items-center p-4">
+    <form className="flex flex-col gap-4 items-center p-4" action={loginUser}>
       <h1 className="text-2xl font-bold">Login </h1>
 
       <Input
