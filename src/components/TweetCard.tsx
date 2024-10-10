@@ -18,7 +18,7 @@ type TweetProps = {
   tweet: TweetExtendedModel;
 };
 
-export default function TweetCard({ tweet }: TweetProps) {
+export default function Tweet({ tweet }: TweetProps) {
   return (
     <div
       className={cn("flex flex-col", tweet.type === TweetType.Tweet && "pt-4")}
