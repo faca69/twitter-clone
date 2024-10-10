@@ -2,6 +2,7 @@
 
 import { UserCreateModel } from "@/db/schemas/user.schema";
 import { createUser } from "@/services/users.service";
+import { redirect } from "next/navigation";
 
 export default async function registerUser(formData: FormData) {
   const newUser: UserCreateModel = {
@@ -12,4 +13,6 @@ export default async function registerUser(formData: FormData) {
   };
 
   await createUser(newUser);
+
+  redirect("/login");
 }
