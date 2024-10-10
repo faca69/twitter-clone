@@ -1,4 +1,4 @@
-import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, uuid, varchar, timestamp } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -17,6 +17,11 @@ export const users = pgTable("users", {
     .notNull()
     .defaultNow(),
 });
+
+export const userRelations = relations(users, ({ many }) => ({
+  follows: many(),
+  followers: many(),
+}));
 
 export type UserModel = InferSelectModel<typeof users>;
 export type UserCreateModel = InferInsertModel<typeof users>;
