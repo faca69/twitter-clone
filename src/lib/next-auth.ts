@@ -1,7 +1,16 @@
-import { getServerSession, NextAuthOptions } from "next-auth";
+import { DefaultSession, getServerSession, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getUserByUsername } from "../services/users.service";
 import bcrypt from "bcrypt";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      username: string;
+    } & DefaultSession["user"];
+  }
+}
 
 export const options: NextAuthOptions = {
   providers: [
