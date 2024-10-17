@@ -1,6 +1,6 @@
-import { db } from "@/db";
-import { UserCreateModel, UserModel, users } from "@/db/schemas/user.schema";
 import { eq } from "drizzle-orm";
+import { db } from "../db";
+import { UserCreateModel, UserModel, users } from "../db/schemas/user.schema";
 
 export const findByUsername = (username: string) =>
   db.query.users.findFirst({
@@ -11,20 +11,25 @@ export const findByUsername = (username: string) =>
     },
   });
 
+export const findById = (id: string) =>
+  db.query.users.findFirst({
+    where: eq(users.id, id),
+  });
+
 export const create = (user: UserCreateModel): Promise<UserModel> =>
   db
     .insert(users)
     .values(user)
     .returning()
-    .then((res) => res[0]);
+    .then((res) => res?.[0]);
 
-export async function update(
+export const update = (
   id: string,
-  userData: Omit<UserModel, "password">
-) {
-  db.update(users)
+  userData: Omit<UserCreateModel, "password">
+) =>
+  db
+    .update(users)
     .set(userData)
     .where(eq(users.id, id))
     .returning()
     .then((res) => res?.[0]);
-}
