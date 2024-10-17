@@ -1,10 +1,12 @@
+"use server";
+
 import { redirect } from "next/navigation";
-import { UserCreateModel } from "./../../db/schemas/user.schema";
-import { updateUser } from "@/services/users.service";
-("use server");
+import { UserCreateModel } from "../../db/schemas/user.schema";
+import { updateUser } from "../../services/users.service";
 
 export default async function editUserAction(formData: FormData) {
   const id = formData.get("id") as string;
+
   const user: Omit<UserCreateModel, "password"> = {
     name: formData.get("name") as string,
     username: formData.get("username") as string,

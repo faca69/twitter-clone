@@ -1,7 +1,7 @@
 "use server";
 
-import { followUser } from "@/services/users.service";
 import { revalidatePath } from "next/cache";
+import { followUser } from "../../services/users.service";
 
 export default async function followUserAction(formData: FormData) {
   const followerId = formData.get("followerId") as string;
@@ -9,5 +9,5 @@ export default async function followUserAction(formData: FormData) {
 
   await followUser(followerId, followeeId);
 
-  revalidatePath("/", "");
+  revalidatePath("/", "page");
 }
