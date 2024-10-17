@@ -102,6 +102,7 @@ export default function TweetCard({ tweet }: TweetProps) {
               </button>
               <input type="hidden" name="text" value={tweet.text} />
               <input type="hidden" name="originalTweetId" value={tweet.id} />
+              <input type="hidden" name="authorId" value={session?.user.id} />
             </form>
             <form action={likeTweetAction}>
               <input type="hidden" name="tweetId" value={tweet.id} />

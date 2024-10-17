@@ -13,7 +13,7 @@ export default defineConfig({
     host: "localhost",
     user: "postgres",
     password: "postgres",
-    database: "twitter",
+    database: "posledna_x_baza",
     port: 5432,
   },
   verbose: true,

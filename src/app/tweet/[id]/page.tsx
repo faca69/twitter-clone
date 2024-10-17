@@ -13,5 +13,9 @@ export default async function TweetDetails({
 
   console.log(tweet);
 
-  return <TweetCard tweet={tweet as unknown as ITweet} />;
+  if (!tweet) {
+    return <h1>Tweet Not Found</h1>;
+  }
+
+  return <TweetCard tweet={tweet} />;
 }
