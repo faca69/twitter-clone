@@ -1,9 +1,9 @@
-import { NextApiRequest } from "next";
+import { NextRequest } from "next/server";
 import { getTweetById } from "../../../../services/tweets.service";
 import { NextResponse } from "next/server";
 
 export async function GET(
-  req: NextApiRequest,
+  req: NextRequest,
   { params: { id } }: { params: { id: string } }
 ) {
   const tweet = await getTweetById(id);
