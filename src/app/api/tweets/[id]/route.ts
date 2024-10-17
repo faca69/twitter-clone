@@ -1,5 +1,5 @@
-import { getTweetById } from "@/services/tweets.service";
 import { NextApiRequest } from "next";
+import { getTweetById } from "../../../../services/tweets.service";
 import { NextResponse } from "next/server";
 
 export async function GET(
