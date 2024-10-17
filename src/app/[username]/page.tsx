@@ -3,6 +3,7 @@ import { getUserByUsername } from "../../services/users.service";
 import Image from "next/image";
 import { CalendarDaysIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { LinkIcon } from "@heroicons/react/24/outline";
+import { getNextServerSession } from "@/lib/next-auth";
 
 type ProfileProps = {
   params: { username: string };
@@ -10,11 +11,15 @@ type ProfileProps = {
 
 export default async function Profile({ params: { username } }: ProfileProps) {
   const user = await getUserByUsername(username);
+  const currentUser = await getNextServerSession();
 
   if (!user) {
     return <p>User not found</p>;
   }
-
+  const isViewingOwnProfile = currentUser?.user.username === username;
+  const isFollowing = user.followers.some(
+    (followRecord) => followRecord.followerId === currentUser?.user.id
+  );
   return (
     <div>
       <div className="p-4">
@@ -27,12 +32,22 @@ export default async function Profile({ params: { username } }: ProfileProps) {
               height={100}
             />
           </div>
-          <Link
-            className="border-solid border-2 border-white text-sm font-bold shadow-md px-4 py-2 text-white h-10 rounded-full"
-            href={`/${username}/edit`}
-          >
-            Edit profile
-          </Link>
+          {isViewingOwnProfile ? (
+            <Link
+              className="border-solid border-2 border-white text-sm font-bold shadow-md px-4 py-2 text-white h-10 rounded-full"
+              href={`/${username}/edit`}
+            >
+              Edit profile
+            </Link>
+          ):isFollowing ? ({
+
+            <form action={}>
+            <input type="hidden" name="followeeId"  value={user.id}/>
+            <input type="hidden" name="followerId"  value={currentUser?.user.id}/>
+
+            
+            <button>Unfollow</button></form>
+          })}
         </div>
 
         <h1 className="text-2xl font-bold mt-2">{user.name}</h1>

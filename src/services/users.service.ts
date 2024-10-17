@@ -53,3 +53,5 @@ export async function updateUser(
 ) {
   return update(id, userData);
 }
+
+export async function followUser(followerId: string, followeeId: string) {}
