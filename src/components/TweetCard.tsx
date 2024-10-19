@@ -35,14 +35,14 @@ export default function TweetCard({ tweet }: TweetProps) {
       className={cn("flex flex-col", tweet.type === TweetType.Tweet && "pt-4")}
     >
       {tweet.type === TweetType.Reply && (
-        <div className="flex flex-row gap-2 items-center text-sm font-bold text-slate-500 ml-10 mt-5 mb-2">
-          <ArrowUturnUpIcon className="size-5 text-slate-500 cursor-pointer" />
+        <div className="flex flex-row items-center gap-2 mt-5 mb-2 ml-10 text-sm font-bold text-slate-500">
+          <ArrowUturnUpIcon className="cursor-pointer size-5 text-slate-500" />
           Reply to &ldquo;{tweet.repliedTo?.text}&ldquo;
         </div>
       )}
       {tweet.type === TweetType.Repost && (
-        <div className="flex flex-row gap-2 items-center text-sm font-bold text-slate-500 ml-10 mt-5 mb-2">
-          <ArrowPathRoundedSquareIcon className="size-5 text-slate-500 cursor-pointer" />
+        <div className="flex flex-row items-center gap-2 mt-5 mb-2 ml-10 text-sm font-bold text-slate-500">
+          <ArrowPathRoundedSquareIcon className="cursor-pointer size-5 text-slate-500" />
           {tweet.author.name} reposted
         </div>
       )}
@@ -58,8 +58,8 @@ export default function TweetCard({ tweet }: TweetProps) {
             </Avatar>
           </Link>
         </div>
-        <div className="w-full flex flex-col">
-          <div className="flex flex-row gap-2 items-center">
+        <div className="flex flex-col w-full">
+          <div className="flex flex-row items-center gap-2">
             <h1 className="font-bold">
               <Link href={`/${tweet.author.username}`}>
                 {tweet.type === TweetType.Repost
@@ -67,7 +67,7 @@ export default function TweetCard({ tweet }: TweetProps) {
                   : tweet.author.name}
               </Link>
             </h1>
-            <h2 className="text-slate-500 text-sm">
+            <h2 className="text-sm text-slate-500">
               <Link href={`/${tweet.author.username}`}>
                 @
                 {tweet.type === TweetType.Repost
@@ -75,7 +75,7 @@ export default function TweetCard({ tweet }: TweetProps) {
                   : tweet.author.username}
               </Link>
             </h2>
-            <div className="text-slate-500 flex items-center justify-center">
+            <div className="flex items-center justify-center text-slate-500">
               <div>-</div>
             </div>
             <p className="text-slate-500 hover:underline">
@@ -85,19 +85,19 @@ export default function TweetCard({ tweet }: TweetProps) {
             </p>
           </div>
           <p>{tweet.text}</p>
-          <div className="flex flex-row gap-4 items-center mt-2 justify-between">
+          <div className="flex flex-row items-center justify-between gap-4 mt-2 ">
             <div>
               <Link
-                className="flex flex-row gap-2 items-center"
+                className="flex flex-row items-center gap-2"
                 href={`/feed/compose?type=${TweetType.Reply}&repliedToId=${tweet.id}`}
               >
-                <ChatBubbleOvalLeftIcon className="size-7 text-slate-500 cursor-pointer" />
+                <ChatBubbleOvalLeftIcon className="cursor-pointer size-7 text-slate-500" />
                 <span>{tweet.replies?.length ?? 0}</span>
               </Link>
             </div>
             <form action={repostTweet}>
-              <button className="flex flex-row gap-2 items-center">
-                <ArrowPathRoundedSquareIcon className="size-7 text-slate-500 cursor-pointer" />
+              <button className="flex flex-row items-center gap-2">
+                <ArrowPathRoundedSquareIcon className="cursor-pointer size-7 text-slate-500" />
                 <span>{tweet.reposts?.length ?? 0}</span>
               </button>
               <input type="hidden" name="text" value={tweet.text} />
@@ -111,7 +111,7 @@ export default function TweetCard({ tweet }: TweetProps) {
                 name="isLiked"
                 value={isLikedByCurrentUser ? "true" : "false"}
               />
-              <button className="flex flex-row gap-2 items-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+              <button className="flex flex-row items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
                 {!isLikedByCurrentUser ? (
                   <HeartIcon className="size-7 text-slate-500" />
                 ) : (
@@ -122,9 +122,9 @@ export default function TweetCard({ tweet }: TweetProps) {
                 <span>{tweet.likes.length ?? 0}</span>
               </button>
             </form>
-            <div className="flex flex-row gap-2 items-center">
+            <div className="flex flex-row items-center gap-2">
               <Link href={`/tweet/${tweet.id}`}>
-                <LinkIcon className="size-7 text-slate-500 cursor-pointer" />
+                <LinkIcon className="cursor-pointer size-7 text-slate-500" />
               </Link>
             </div>
           </div>

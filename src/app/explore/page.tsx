@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
-import { Tweet } from "../../types/tweet.interface";
 import Tweets from "@/components/Tweets";
+import { TweetExtendedModel } from "@/db/schemas/tweet.schema";
 
 export default function Explore() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [tweets, setTweets] = useState<Tweet[]>([]);
+  const [tweets, setTweets] = useState<TweetExtendedModel[]>([]);
 
   useEffect(() => {
     console.log("Search term has changed", searchTerm);

@@ -1,9 +1,19 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
-import { pgTable, uuid, varchar, timestamp, unique } from "drizzle-orm/pg-core";
+import {
+  uuid,
+  varchar,
+  timestamp,
+  unique,
+  pgTableCreator,
+} from "drizzle-orm/pg-core";
 import { follows } from "./users_follows.schema";
 import { usersLikedTweets } from "./users_liked_tweets";
 
-export const users = pgTable(
+const createTable = pgTableCreator(
+  (name) => `${process.env.X_DB_PREFIX!}_${name}`
+);
+
+export const users = createTable(
   "users",
   {
     id: uuid("id").primaryKey().defaultRandom(),
