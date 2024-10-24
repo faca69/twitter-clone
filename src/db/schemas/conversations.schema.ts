@@ -4,7 +4,7 @@ import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { MessageExtendedModel, messages } from "./messages.schema";
 
 const createTable = pgTableCreator(
-  (name) => `${process.env.q_DB_PREFIX!}_${name}`
+  (name) => `${process.env.twitter_DB_PREFIX!}_${name}`
 );
 
 export const conversations = createTable("conversations", {
