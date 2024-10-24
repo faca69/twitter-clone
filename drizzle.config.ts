@@ -20,6 +20,6 @@ export default defineConfig({
     ssl: true,
   },
   verbose: true,
-  tablesFilter: [`${process.env.q_DB_PREFIX!}_.*`],
+  tablesFilter: [`${process.env.twitter_DB_PREFIX!}_.*`],
   strict: true,
 });
