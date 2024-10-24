@@ -11,8 +11,8 @@ import { TweetModel } from "../db/schemas/tweet.schema";
 import { TweetType } from "../types/tweet-type.enum";
 import { submitReply } from "../app/actions/reply.action";
 import { useSession } from "next-auth/react";
-import { UserModel } from "@/db/schemas/user.schema";
-import LoadingSpinner from "@/app/[username]/loading";
+import { UserModel } from "../db/schemas/user.schema";
+import LoadingSpinner from "@/app/feed/loading";
 
 type ComposeTweetProps = {
   onSubmit?: () => void;
@@ -34,9 +34,12 @@ export default function ComposeTweet({
     if (!session?.user?.username) {
       return;
     }
-    fetch(`http://localhost:3000/api/users/${session.user.username}`)
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${session.user.username}`
+    )
       .then((res) => res.json())
-      .then((resUSer) => setUser(resUSer));
+      .then((resUser) => setUser(resUser));
 
     const typeParam = searchParams.get("type");
 
@@ -46,7 +49,7 @@ export default function ComposeTweet({
 
     if (type === TweetType.Reply && id) {
       setRepliedToId(id);
-      fetch(`http://localhost:3000/api/tweets/${id}`)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tweets/${id}`)
         .then((res) => res.json())
         .then((body) => setOriginalTweet(body));
     } else {
@@ -70,7 +73,7 @@ export default function ComposeTweet({
         <div>
           <Avatar>
             <AvatarImage
-              src={user.avatar ?? "https://github.com/shadcn.png"}
+              src={user.avatar ?? `https://github.com/shadcn.png`}
               className="w-12 h-12 rounded-full"
             />
             <AvatarFallback>Avatar</AvatarFallback>

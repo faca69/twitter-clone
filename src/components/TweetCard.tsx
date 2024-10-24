@@ -35,47 +35,47 @@ export default function TweetCard({ tweet }: TweetProps) {
       className={cn("flex flex-col", tweet.type === TweetType.Tweet && "pt-4")}
     >
       {tweet.type === TweetType.Reply && (
-        <div className="flex flex-row items-center gap-2 mt-5 mb-2 ml-10 text-sm font-bold text-slate-500">
-          <ArrowUturnUpIcon className="cursor-pointer size-5 text-slate-500" />
+        <div className="flex flex-row gap-2 items-center text-sm font-bold text-slate-500 ml-10 mt-5 mb-2">
+          <ArrowUturnUpIcon className="size-5 text-slate-500 cursor-pointer" />
           Reply to &ldquo;{tweet.repliedTo?.text}&ldquo;
         </div>
       )}
       {tweet.type === TweetType.Repost && (
-        <div className="flex flex-row items-center gap-2 mt-5 mb-2 ml-10 text-sm font-bold text-slate-500">
-          <ArrowPathRoundedSquareIcon className="cursor-pointer size-5 text-slate-500" />
-          {tweet.author.name} reposted
+        <div className="flex flex-row gap-2 items-center text-sm font-bold text-slate-500 ml-10 mt-5 mb-2">
+          <ArrowPathRoundedSquareIcon className="size-5 text-slate-500 cursor-pointer" />
+          {tweet.author.name ?? "Someone"} reposted
         </div>
       )}
       <div className="flex flex-row pl-4 pr-4 pb-4 gap-4 border-b-[1px] border-gray-600">
         <div>
-          <Link href={`/${tweet.author.username}`}>
+          <Link href={`/${tweet.author?.username}`}>
             <Avatar>
               <AvatarImage
-                src={tweet.author.avatar ?? "https://github.com/shadcn.png"}
+                src={tweet.author?.avatar ?? "https://github.com/shadcn.png"}
                 className="w-12 h-12 rounded-full"
               />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </Link>
         </div>
-        <div className="flex flex-col w-full">
-          <div className="flex flex-row items-center gap-2">
+        <div className="w-full flex flex-col">
+          <div className="flex flex-row gap-2 items-center">
             <h1 className="font-bold">
-              <Link href={`/${tweet.author.username}`}>
+              <Link href={`/${tweet.author?.username}`}>
                 {tweet.type === TweetType.Repost
-                  ? tweet.originalTweet?.author.name
+                  ? tweet.originalTweet?.author?.name
                   : tweet.author.name}
               </Link>
             </h1>
-            <h2 className="text-sm text-slate-500">
-              <Link href={`/${tweet.author.username}`}>
+            <h2 className="text-slate-500 text-sm">
+              <Link href={`/${tweet.author?.username}`}>
                 @
                 {tweet.type === TweetType.Repost
-                  ? tweet.originalTweet?.author.username
-                  : tweet.author.username}
+                  ? tweet.originalTweet?.author?.username
+                  : tweet.author?.username}
               </Link>
             </h2>
-            <div className="flex items-center justify-center text-slate-500">
+            <div className="text-slate-500 flex items-center justify-center">
               <div>-</div>
             </div>
             <p className="text-slate-500 hover:underline">
@@ -85,19 +85,19 @@ export default function TweetCard({ tweet }: TweetProps) {
             </p>
           </div>
           <p>{tweet.text}</p>
-          <div className="flex flex-row items-center justify-between gap-4 mt-2 ">
+          <div className="flex flex-row gap-4 items-center mt-2 justify-between">
             <div>
               <Link
-                className="flex flex-row items-center gap-2"
+                className="flex flex-row gap-2 items-center"
                 href={`/feed/compose?type=${TweetType.Reply}&repliedToId=${tweet.id}`}
               >
-                <ChatBubbleOvalLeftIcon className="cursor-pointer size-7 text-slate-500" />
+                <ChatBubbleOvalLeftIcon className="size-7 text-slate-500 cursor-pointer" />
                 <span>{tweet.replies?.length ?? 0}</span>
               </Link>
             </div>
             <form action={repostTweet}>
-              <button className="flex flex-row items-center gap-2">
-                <ArrowPathRoundedSquareIcon className="cursor-pointer size-7 text-slate-500" />
+              <button className="flex flex-row gap-2 items-center">
+                <ArrowPathRoundedSquareIcon className="size-7 text-slate-500 cursor-pointer" />
                 <span>{tweet.reposts?.length ?? 0}</span>
               </button>
               <input type="hidden" name="text" value={tweet.text} />
@@ -111,7 +111,7 @@ export default function TweetCard({ tweet }: TweetProps) {
                 name="isLiked"
                 value={isLikedByCurrentUser ? "true" : "false"}
               />
-              <button className="flex flex-row items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              <button className="flex flex-row gap-2 items-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
                 {!isLikedByCurrentUser ? (
                   <HeartIcon className="size-7 text-slate-500" />
                 ) : (
@@ -122,9 +122,9 @@ export default function TweetCard({ tweet }: TweetProps) {
                 <span>{tweet.likes.length ?? 0}</span>
               </button>
             </form>
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row gap-2 items-center">
               <Link href={`/tweet/${tweet.id}`}>
-                <LinkIcon className="cursor-pointer size-7 text-slate-500" />
+                <LinkIcon className="size-7 text-slate-500 cursor-pointer" />
               </Link>
             </div>
           </div>

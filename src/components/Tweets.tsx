@@ -9,9 +9,7 @@ export default function Tweets({ tweets }: TweetsProps) {
   return (
     <div>
       {tweets.map((tweet) => (
-        <>
-          <TweetCard key={tweet.id} tweet={tweet} />
-        </>
+        <TweetCard key={tweet.id} tweet={tweet} />
       ))}
     </div>
   );

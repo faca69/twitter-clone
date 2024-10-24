@@ -26,7 +26,9 @@ export default function Sidebar() {
       return;
     }
 
-    fetch(`http://localhost:3000/api/users/${session.user.username}`)
+    fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${session.user.username}`
+    )
       .then((res) => res.json())
       .then((resUser) => setUser(resUser));
   }, [session]);
@@ -90,10 +92,10 @@ export default function Sidebar() {
                   width={50}
                   height={50}
                 />
-                <div className="w-10">
-                  <h1 className="font-bold">{user.name}</h1>
-                  <p className="text-md text-slate-500">@{user.username}</p>
-                </div>
+              </div>
+              <div className="w-10">
+                <h1 className="font-bold">{user.name}</h1>
+                <p className="text-md text-slate-500">@{user.username}</p>
               </div>
             </Link>
           </li>
