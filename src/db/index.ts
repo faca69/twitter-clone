@@ -1,3 +1,4 @@
+import { conversations } from "./schemas/conversations.schema";
 import {
   follows,
   usersFollowersRelations,
@@ -25,6 +26,8 @@ export const db = drizzle<{
   usersRelations: typeof usersRelations;
   usersFollowersRelations: typeof usersFollowersRelations;
   usersLikedTweetsRelations: typeof usersLikedTweetsRelations;
+  conversations: typeof conversations;
+  conversations: typeof conversations;
 }>(sql, {
   schema: {
     tweets,
@@ -35,6 +38,8 @@ export const db = drizzle<{
     usersRelations,
     usersFollowersRelations,
     usersLikedTweetsRelations,
+    conversations,
+    messages,
   },
   logger: true,
 });

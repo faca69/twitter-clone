@@ -4,6 +4,8 @@ import { getTweets } from "@/services/tweets.service";
 import React from "react";
 import { Tweet as ITweet } from "@/types/tweet.interface";
 
+const dynamic = "force-dynamic";
+
 export default async function ForYou() {
   const tweets = await getTweets();
   return (
