@@ -1,3 +1,3 @@
-import page from "./@compose/page";
+import page from "./page";
 
 export default page;
