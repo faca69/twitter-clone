@@ -5,24 +5,21 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  DialogTitle,
+} from "../../../../components/ui/dialog";
 import { useRouter } from "next/navigation";
-import React, { ReactNode } from "react";
 
-type ModalProps = {
-  children: ReactNode;
-};
-
-export default function Modal({ children }: ModalProps) {
+export default function Modal() {
   const router = useRouter();
 
+  // By default the dialog is open, and when the dialog is closing, we redirect the user back to the feed page
   return (
     <Dialog defaultOpen onOpenChange={() => router.back()}>
-      <DialogTrigger className="w-full">{children}</DialogTrigger>
       <DialogContent>
-        <DialogHeader>Compose a Tweet</DialogHeader>
-        <ComposeTweet onSubmit={() => router.back()} />
+        <DialogHeader>
+          <DialogTitle>Compose a tweet</DialogTitle>
+          <ComposeTweet onSubmit={() => router.back()} />
+        </DialogHeader>
       </DialogContent>
     </Dialog>
   );

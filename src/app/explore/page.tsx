@@ -10,8 +10,6 @@ export default function Explore() {
   const [tweets, setTweets] = useState<TweetExtendedModel[]>([]);
 
   useEffect(() => {
-    console.log("Search term has changed", searchTerm);
-
     fetch(`http://localhost:3000/api/tweets?searchTerm=${searchTerm}`)
       .then((res) => res.json())
       .then((tweetsResponse) => setTweets(tweetsResponse));

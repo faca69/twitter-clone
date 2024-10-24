@@ -21,14 +21,11 @@ export const options: NextAuthOptions = {
         password: {},
       },
       async authorize(credentials) {
-        console.log("🚀 ivo-test ~ authorize ~ credentials:", credentials);
-
         if (!credentials) return null;
 
         const { username, password } = credentials;
 
         const user = await getUserByUsername(username);
-        console.log("🚀 ivo-test ~ authorize ~ user:", user);
 
         if (!user) return null;
 
@@ -46,9 +43,6 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, user, token }) {
-      console.log("🚀 ivo-test ~ session ~ token:", token);
-      console.log("🚀 ivo-test ~ session ~ user:", user);
-      console.log("🚀 ivo-test ~ session ~ session:", session);
       return {
         ...session,
         user: {

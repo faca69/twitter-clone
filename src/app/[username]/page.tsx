@@ -20,7 +20,6 @@ export default async function Profile({ params: { username } }: ProfileProps) {
     return <p>User not found</p>;
   }
 
-  console.log("🚀 ivo-test ~ Profile ~ user:", user);
   const isViewingOwnProfile = currentUser?.user.username === username;
 
   const isFollowing = user.followers.some(

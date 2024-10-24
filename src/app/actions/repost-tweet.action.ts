@@ -17,8 +17,6 @@ export async function repostTweet(formData: FormData) {
     authorId,
   };
 
-  console.log("🚀 ivo-test ~ repostTweet ~ tweet:", tweet);
-
   await createTweet(tweet);
 
   revalidatePath("/feed", "page");
