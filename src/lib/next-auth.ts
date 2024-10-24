@@ -56,7 +56,7 @@ export const options: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
-  secret: "say_lalisa_love_me_lalisa_love_me_hey",
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export const getNextServerSession = () => getServerSession(options);

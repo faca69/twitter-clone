@@ -19,7 +19,6 @@ export default defineConfig({
     port: parseInt(process.env.twitter_DB_PORT!),
     ssl: true,
   },
-  verbose: true,
   tablesFilter: [`${process.env.twitter_DB_PREFIX!}_.*`],
   strict: true,
 });
