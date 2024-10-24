@@ -1,6 +1,7 @@
 import TweetCard from "@/components/TweetCard";
+import { TweetExtendedModel } from "../../../db/schemas/tweet.schema";
 import { getTweetById } from "../../../services/tweets.service";
-import { Tweet as ITweet } from "../../../types/tweet.interface";
+import Tweets from "@/components/Tweets";
 
 type TweetDetailsProps = {
   params: { id: string };
@@ -11,11 +12,14 @@ export default async function TweetDetails({
 }: TweetDetailsProps) {
   const tweet = await getTweetById(id);
 
-  console.log(tweet);
-
   if (!tweet) {
-    return <h1>Tweet Not Found</h1>;
+    return <h1>Tweet not found</h1>;
   }
 
-  return <TweetCard tweet={tweet} />;
+  return (
+    <div>
+      <TweetCard tweet={tweet} />
+      <Tweets tweets={(tweet.replies as TweetExtendedModel[]) ?? []} />
+    </div>
+  );
 }

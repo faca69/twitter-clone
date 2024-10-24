@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { searchUsers } from "../../../services/users.service";
 
-// Example GET method
 export async function GET(req: NextRequest) {
-  return NextResponse.json({ message: "Users endpoint" });
+  const searchTerm = req.nextUrl.searchParams?.get("searchTerm");
+
+  const users = await searchUsers(searchTerm ?? "");
+
+  return NextResponse.json(users);
 }

@@ -1,5 +1,5 @@
-import { getUsersLikedTweets } from "@/services/tweets.service";
 import { NextRequest, NextResponse } from "next/server";
+import { getUsersLikedTweets } from "../../../../../../services/tweets.service";
 
 export async function GET(
   req: NextRequest,
